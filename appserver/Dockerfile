@@ -3,7 +3,7 @@
 FROM ubuntu:14.04
 MAINTAINER Lenny Marks <lenny@lennymarks.com>
 
-ENV INSTALL_DIR /opt/apps
+ENV INSTALL_DIR /apps
 ENV REDMINE_DIR $INSTALL_DIR/redmine
 ENV REDMINE_VERSION 1a6b7e2a6064e58f383a4546533e745667ab18a2
 ENV UNICORN_VERSION 4.8.3
@@ -37,6 +37,7 @@ RUN rake generate_secret_token
 	
 COPY unicorn.rb $REDMINE_DIR/
 COPY additional_environment.rb $REDMINE_DIR/config/
+COPY configuration.yml.template $REDMINE_DIR/config/
 COPY entrypoint.sh /
 	
 ENTRYPOINT ["sh", "/entrypoint.sh"]
